@@ -1,0 +1,23 @@
+#car {
+	height: 1000px;
+	width: 1000px;
+	position: absolute;
+	top: 80px;
+	left:40px;
+}
+
+#wheelBack {
+	height: 100px;
+	width: 100px;
+	position: absolute;
+	top: 630px;
+	left:370px;
+}
+
+#wheelFront {
+	height: 100px;
+	width: 100px;
+	position: absolute;
+	top: 630px;
+	left:830px;
+}
