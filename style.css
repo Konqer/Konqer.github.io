@@ -21,3 +21,31 @@
 	top: 630px;
 	left:830px;
 }
+
+#light {
+	height: 400px;
+	width: 400px;
+	position: absolute;
+	top: 300px;
+	left:900px;	
+}
+
+#clouds {
+	height: 450px;
+	width: 450px;
+	position: absolute;
+	top: 1px;
+	left: -500px;		
+}
+
+#headline {
+	position:absolute;
+	top:10px;
+}
+
+#manual {
+	position:absolute;
+	top:800px;
+	left:100px;
+	font-size: 150%;
+}
