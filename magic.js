@@ -18,7 +18,7 @@ function loadWheel(filename) {
 		wheelBack.setAttribute('src', this.src);
 		wheelFront.setAttribute('src', this.src);
 	};
-	imageObj.src = "../pics/" + filename;
+	imageObj.src = "pics/" + filename;
 }
 
 window.onkeydown = function(event) {
