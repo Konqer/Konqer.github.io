@@ -18,7 +18,7 @@ function loadWheel(filename) {
 		wheelBack.setAttribute('src', this.src);
 		wheelFront.setAttribute('src', this.src);
 	};
-	imageObj.src = "pics/" + filename;
+	imageObj.src = "../pics/" + filename;
 }
 
 window.onkeydown = function(event) {
@@ -55,8 +55,8 @@ function rotateWheel(tmp) {
 
 	var wheelBack = document.getElementById('wheelBack');
 	var wheelFront = document.getElementById('wheelFront');
-	wheelBack.setAttribute('src', 'pics/WheelRed' + wheelNumber + '.png');
-	wheelFront.setAttribute('src', 'pics/WheelRed' + wheelNumber + '.png');
+	wheelBack.setAttribute('src', '../pics/WheelRed' + wheelNumber + '.png');
+	wheelFront.setAttribute('src', '../pics/WheelRed' + wheelNumber + '.png');
 }
 
 function rotateWheelAutomatic() {
