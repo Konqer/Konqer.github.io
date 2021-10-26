@@ -1,32 +1,79 @@
 <!DOCTYPE html5>
-<!-- Folgende Bildquellen wurden verwendet:
-		* Auto - https://www.pngegg.com/de/png-bcppp
-		* Ampel - https://www.pngegg.com/de/png-ildew
-		* Wolken - https://www.pngegg.com/de/png-befzs
-		* Reifen - https://www.pngegg.com/de/png-xvlvu
--->
+
 <html>
 	<head>
-		<script src="magic.js"></script>
-		<link rel="stylesheet" href="style.css">
-		
-		<title>EA 1 - Interaktiv animierte Scheibe</title>
+		<title>EA 2 - 2D Geometrie aus Linien</title>
 	</head>
-	<body onload=loadScene()>
-		<img id="car" src="pics/car.png" alt="Ein wunderschoenes Auto">
-		<img id="wheelBack">
-		<img id="wheelFront">
-		<img id="light" src="pics/light.png">
-		<img id="clouds" src="pics/clouds.png">
-		
-		<h1 id="headline">EA 1 - Interaktiv animierte Scheibe</h1>
-		
-		<ul id="manual">
-			<h2>Steuerung</h5>
-			<p><b>R:</b> Faehrt das Fahrzeug vorwaerts</p>
-			<p><b>L:</b> Faehrt das Fahrzeug rueckwaerts</p>
-			<p><b>A:</b> Der Autopilot uebernimmt das fahren</p>
-			<p><b>S:</b> Bringt das Fahrzeug zum Stillstand</p>
-		</ul>
+	<body>
+		<canvas id="canvas" width="1000" height="850"></canvas>
+		<h1>EA 2 - 2D Geometrie aus Linien</h1>
+		<h3>Falls es auf anhieb nicht ersichtlich sein sollte; Die Geometrische Figur soll einen Fuchs darstellen ;)</h3>
+		<script>
+			var canvas = document.getElementById("canvas");
+			var gl = canvas.getContext("experimental-webgl");
+			gl.clearColor(1, 1, 1, 1);
+						
+			var vsSource = "attribute vec2 pos;" + 
+			"void main(){gl_Position = vec4(pos * 0.2 - 0.5, 0, 1);" + 
+			"gl_PointSize = 10.0;}";
+			var vs = gl.createShader(gl.VERTEX_SHADER);
+			gl.shaderSource(vs, vsSource);
+			gl.compileShader(vs);
+
+			var fsSource = "void main(){gl_FragColor = vec4(0,0,0,1);}";
+			var fs = gl.createShader(gl.FRAGMENT_SHADER);
+			gl.shaderSource(fs, fsSource);
+			gl.compileShader(fs);
+
+			var prog = gl.createProgram();
+			gl.attachShader(prog, vs);
+			gl.attachShader(prog, fs);
+			gl.linkProgram(prog);
+			gl.useProgram(prog);
+
+			var vertices = new Float32Array([
+				3,0,
+				1,3,
+				2,5,
+				4,5,
+				5,3,
+				3,0,
+				3,5,
+				1.5,7,
+				1,3,
+				3,0,
+				3,5,
+				4.5,7,
+				5,3,
+				3,0,
+				2,5,
+				1.5,7,
+				3,5,
+				4.5,7,
+				4,5,
+				3,0,
+				2,1.5,
+				0.5,2,
+				1,3,
+				3,2,
+				5,3,
+				5.5,2,
+				4,1.5,
+				3,0]);
+			var vbo = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+			gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+			var posAttrib = gl.getAttribLocation(prog, "pos");
+			gl.vertexAttribPointer(posAttrib, 2, gl.FLOAT, false, 0, 0);
+			gl.enableVertexAttribArray(posAttrib);
+
+			gl.frontFace(gl.CCW);
+			gl.enable(gl.CULL_FACE);
+			gl.cullFace(gl.BACK);
+
+			gl.clear(gl.COLOR_BUFFER_BIT);
+			gl.drawArrays(gl.LINE_STRIP, 0, 28);
+		</script>
 	</body>
 </html>

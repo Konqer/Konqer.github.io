@@ -1,3 +1,4 @@
+/*
 var wheelNumber = 1;
 
 var autoRotate = false;
@@ -80,3 +81,4 @@ function moveClouds() {
 		}
 	}
 }
+*/
