@@ -2,25 +2,37 @@
 
 <html>
 	<head>
-		<title>EA 2 - 2D Geometrie aus Linien</title>
+		<title>EA 3 - Farbig gefuellte 2D Geometrie</title>
 	</head>
 	<body>
-		<canvas id="canvas" width="1000" height="850"></canvas>
-		<h1>EA 2 - 2D Geometrie aus Linien</h1>
-		<h3>Falls es auf anhieb nicht ersichtlich sein sollte; Die Geometrische Figur soll einen Fuchs darstellen ;)</h3>
+		<canvas id="canvas" width="600" height="550"></canvas>
+		<h1>EA 3 - Farbig gefuellte 2D Geometrie: Das Haus vom Nikolaus</h1>
 		<script>
 			var canvas = document.getElementById("canvas");
 			var gl = canvas.getContext("experimental-webgl");
+			
 			gl.clearColor(1, 1, 1, 1);
+			gl.frontFace(gl.CCW);
+			gl.enable(gl.CULL_FACE);
+			gl.cullFace(gl.BACK);
 						
-			var vsSource = "attribute vec2 pos;" + 
-			"void main(){gl_Position = vec4(pos * 0.2 - 0.5, 0, 1);" + 
-			"gl_PointSize = 10.0;}";
+			var vsSource = ""+
+			"attribute vec3 pos;" +
+			"attribute vec4 col;" +
+			"varying vec4 color;" + 
+			"void main(){"+
+				"color = col;"+
+				"gl_Position = vec4((pos-1.8) * 0.3, 1);" + 
+			"}";
 			var vs = gl.createShader(gl.VERTEX_SHADER);
 			gl.shaderSource(vs, vsSource);
 			gl.compileShader(vs);
 
-			var fsSource = "void main(){gl_FragColor = vec4(0,0,0,1);}";
+			var fsSource = "precision mediump float;"+
+				"varying vec4 color;"+
+				"void main(){"+
+					"gl_FragColor = color;"+
+				"}";
 			var fs = gl.createShader(gl.FRAGMENT_SHADER);
 			gl.shaderSource(fs, fsSource);
 			gl.compileShader(fs);
@@ -31,49 +43,36 @@
 			gl.linkProgram(prog);
 			gl.useProgram(prog);
 
-			var vertices = new Float32Array([
-				3,0,
-				1,3,
-				2,5,
-				4,5,
-				5,3,
-				3,0,
-				3,5,
-				1.5,7,
-				1,3,
-				3,0,
-				3,5,
-				4.5,7,
-				5,3,
-				3,0,
-				2,5,
-				1.5,7,
-				3,5,
-				4.5,7,
-				4,5,
-				3,0,
-				2,1.5,
-				0.5,2,
-				1,3,
-				3,2,
-				5,3,
-				5.5,2,
-				4,1.5,
-				3,0]);
-			var vbo = gl.createBuffer();
-			gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+		 	var vertices = new Float32Array([ 0,0,0, 3,0,0, 1.5,1.5,0, 0,3,0, 0,0,0, 1.5,1.5,0, 3,3,0, 0,3,0, 1.5,1.5,0, 3,0,0, 3,3,0, 3,3,0, 1.5,5,0, 0,3,0]);
+
+            var colors = new Float32Array([ 1,0,0,1, 1,1,0,1, 0,1,1,1, 1,1,0,1, 0,1,1,1, 0,1,1,1, 1,0,1,1, 0,0,1,1, 1,1,0,1, 0,1,0,1, 1,1,0,1, 0,1,1,1, 0,1,1,1, 1,0,1,1]);
+
+            var indices = new Uint16Array([ 0,1,2, 2,3,4, 5,6,7, 8,9,10, 11,12,13]);
+
+
+			var vboPos = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, vboPos);
 			gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
 			var posAttrib = gl.getAttribLocation(prog, "pos");
-			gl.vertexAttribPointer(posAttrib, 2, gl.FLOAT, false, 0, 0);
+			gl.vertexAttribPointer(posAttrib, 3, gl.FLOAT, false, 0, 0);
 			gl.enableVertexAttribArray(posAttrib);
 
-			gl.frontFace(gl.CCW);
-			gl.enable(gl.CULL_FACE);
-			gl.cullFace(gl.BACK);
+			var vboCol = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, vboCol);
+			gl.bufferData(gl.ARRAY_BUFFER, colors, gl.STATIC_DRAW);
+
+			var colAttrib = gl.getAttribLocation(prog, "col");
+			gl.vertexAttribPointer(colAttrib, 4, gl.FLOAT, false, 0, 0);
+			gl.enableVertexAttribArray(colAttrib);
+
+			var ibo = gl.createBuffer();
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
+			gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indices, gl.STATIC_DRAW);
+			ibo.numerOfEmements = indices.length;
 
 			gl.clear(gl.COLOR_BUFFER_BIT);
-			gl.drawArrays(gl.LINE_STRIP, 0, 28);
+			gl.drawElements(gl.TRIANGLES, ibo.numerOfEmements, gl.UNSIGNED_SHORT, 0);
 		</script>
 	</body>
 </html>
