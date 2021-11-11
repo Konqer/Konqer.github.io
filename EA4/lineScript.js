@@ -216,7 +216,7 @@
     } = color;
 
     if (isNaN(r) || isNaN(g) || isNaN(b) || isNaN(a) || ![gl.TRIANGLES, gl.LINES].includes(renderingType)) {
-      console.error('Pay attention to the rendering attributes', color, renderingType);
+      console.error('RenderingType beachten', color, renderingType);
       return;
     }
 
