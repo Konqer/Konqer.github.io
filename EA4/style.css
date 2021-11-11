@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+body, html{
+    margin:0;
+    padding:0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(233, 233, 233);
+    background-color: rgb(100, 122, 140);
+}
+
+main {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    margin: auto;
+    width: 80%;
+}
+
+header {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:rgb(100, 122, 140);
+    font-size:3em;
+    text-align: center;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 2em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    box-shadow: 0 3px 16px 0 rgb(0, 0, 0);
+}
+
+#canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 800px;
+    height: 800px;
+}
+
+.button-box {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 150px;
+    position: absolute;
+    top: 20px;
+    left: 70px;
+}
+
+.button-box>* {
+    margin-bottom: 5px;    
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: lighter;
+    background-color: rgb(81, 82, 139);
+    color: rgb(255, 255, 255);
+    width: 100%;
+    padding: 0.45rem;    
+}
+
+.button-box> :last-child {
+    margin-right: 0;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+#wrapper {
+    position: relative;
+    margin: auto;
+    height: 600px;
+    width: 900px;
+}
+
+#form {
+    position: relative;
+    margin: auto;
+    top: 250px;
+    left: 10px;
+}
